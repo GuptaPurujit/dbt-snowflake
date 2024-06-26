@@ -3,6 +3,12 @@ version: 2
 
 models:
   - name: int_orders__predqm
+    columns:
+      - name: dq_col
+        tests:
+          - check_not_null:
+              primary_key: o_orderkey
+              severity_level: warn
   - name: stg_orders
 
 sources:
