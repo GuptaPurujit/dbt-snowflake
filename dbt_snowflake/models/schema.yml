@@ -4,19 +4,19 @@ version: 2
 models:
   - name: int_orders__predqm
     columns:
-      - name: o_orderkey
+      - name: dq_col
         tests:
           - check__not_null:
               primary_key: o_orderkey
               severity_level: warn
-          # - check__unique:
-          #     primary_key: o_orderkey
-          #     severity_level: warn
+          - check__unique:
+              primary_key: o_orderkey
+              severity_level: warn
           # - check__length:
           #     primary_key: o_orderkey
           #     severity_level: warn
           #     expected_length: 15
-          #     opertor: '!=' # for equal to length
+          #     operator: '!=' # for equal to length
           #     operator: '<=' # for greater than length
           #     operator: '>=' # for less than length
   - name: stg_orders

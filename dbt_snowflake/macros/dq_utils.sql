@@ -25,7 +25,7 @@
     {% if detail_results | length == 0 %}
         {{ log(msg="No issues found for " ~ column_name ~ " in the table " ~ model, info=true) }}
         {{ 
-            create_table(
+            create_or_update_table(
                 schema='AUDIT', 
                 table='dqm_summary', 
                 query=generate_dq_summary(
@@ -41,7 +41,7 @@
         select * from (select 1 as id where 1 = 0)
     {% else %}
         {{ 
-            create_table(
+            create_or_update_table(
                 schema='AUDIT', 
                 table='dqm_details', 
                 query=generate_dq_details(
@@ -55,7 +55,7 @@
             ) 
         }}
         {{ 
-            create_table(
+            create_or_update_table(
                 schema='AUDIT', 
                 table='dqm_summary', 
                 query=generate_dq_summary(
