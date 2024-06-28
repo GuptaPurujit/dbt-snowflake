@@ -4,14 +4,14 @@ version: 2
 models:
   - name: int_orders__predqm
     columns:
-      - name: dq_col
+      - name: o_clerk
         tests:
-          - check__not_null:
-              primary_key: o_orderkey
-              severity_level: warn
-          - check__unique:
-              primary_key: o_orderkey
-              severity_level: warn
+          # - check__not_null:
+          #     primary_key: o_orderkey
+          #     severity_level: warn
+          # - check__unique:
+          #     primary_key: o_orderkey
+          #     severity_level: warn
           # - check__length:
           #     primary_key: o_orderkey
           #     severity_level: warn
@@ -19,6 +19,11 @@ models:
           #     operator: '!=' # for equal to length
           #     operator: '<=' # for greater than length
           #     operator: '>=' # for less than length
+          - check__custom_condition:
+              primary_key: o_orderkey
+              severity_level: warn
+              custom_condition: "LENGTH(o_clerk) = 15"  # Example custom condition
+              custom_where_clause: "o_orderstatus = 'O'"  # Optional custom where clause
   - name: stg_orders
 
 sources:

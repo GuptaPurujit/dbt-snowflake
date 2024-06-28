@@ -25,9 +25,9 @@
                     SEVERITY VARCHAR(5),
                     TABLE_NAME VARCHAR(100),
                     DQ_COLUMN_NAME VARCHAR(100),
-                    DQ_COLUMN_VALUE NUMBER(38,0),
+                    DQ_COLUMN_VALUE VARCHAR(200),
                     PRIMARY_KEY_COLUMN VARCHAR(100),
-                    PRIMARY_KEY_VALUE NUMBER(38,0)
+                    PRIMARY_KEY_VALUE VARCHAR(200)
                 );
             {% endif %}
         {% endset %}
