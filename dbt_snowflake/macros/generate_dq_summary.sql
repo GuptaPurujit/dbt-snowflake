@@ -24,7 +24,11 @@
             '{{ table }}' as table_name,
             '{{ column_name }}' as dq_column_name,
             {{ record_count }} as record_count,
-            {{ failed_record_count }} as failed_record_count
+            {{ failed_record_count }} as failed_record_count,
+            CASE WHEN {{ failed_record_count }} > 0 THEN 'failed'
+                 WHEN {{ failed_record_count }} = 0 THEN 'success'
+                 ELSE 'NA'
+            END as status
     {% endset %}
     {{ dq_summary_insert_query }}
 {% endmacro %}

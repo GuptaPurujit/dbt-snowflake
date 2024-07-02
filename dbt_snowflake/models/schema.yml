@@ -4,26 +4,31 @@ version: 2
 models:
   - name: int_orders__predqm
     columns:
-      - name: o_clerk
+      - name: dq_col
         tests:
-          # - check__not_null:
-          #     primary_key: o_orderkey
-          #     severity_level: warn
-          # - check__unique:
-          #     primary_key: o_orderkey
-          #     severity_level: warn
-          # - check__length:
-          #     primary_key: o_orderkey
-          #     severity_level: warn
-          #     expected_length: 15
-          #     operator: '!=' # for equal to length
+          - check__not_null:
+              primary_key: o_orderkey
+              severity_level: error
+              custom_where_clause: "o_orderstatus = 'O'"
+          - check__unique:
+              primary_key: o_orderkey
+              severity_level: warn
+          - check__length:
+              primary_key: o_orderkey
+              severity_level: warn
+              expected_length: 15
+              operator: '!=' # for equal to length
           #     operator: '<=' # for greater than length
           #     operator: '>=' # for less than length
           - check__custom_condition:
               primary_key: o_orderkey
               severity_level: warn
-              custom_condition: "LENGTH(o_clerk) = 15"  # Example custom condition
-              custom_where_clause: "o_orderstatus = 'O'"  # Optional custom where clause
+              custom_condition: "LENGTH(o_clerk) != 15"  # Example custom condition
+          #     custom_where_clause: "o_orderstatus = 'O'"  # Optional custom where clause
+          - check__regex_match:
+              primary_key: o_orderkey
+              severity_level: warn
+              regex_pattern: "'^Clerk#\\\\d{9}$'"
   - name: stg_orders
 
 sources:

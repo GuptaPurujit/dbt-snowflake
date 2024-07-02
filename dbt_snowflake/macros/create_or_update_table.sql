@@ -15,7 +15,8 @@
                     TABLE_NAME VARCHAR(100),
                     DQ_COLUMN_NAME VARCHAR(100),
                     RECORD_COUNT NUMBER(38,0),
-                    FAILED_RECORD_COUNT NUMBER(38,0)
+                    FAILED_RECORD_COUNT NUMBER(38,0),
+                    STATUS VARCHAR(10)
                 );
             {% elif table == 'dqm_details' %}
                 create TRANSIENT TABLE {{ database }}.{{ schema }}.{{ table }} (

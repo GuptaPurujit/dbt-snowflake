@@ -8,9 +8,9 @@
 - [x] Null Check
 - [x] Lenght Check
 - [ ] Data Format Check
-- [ ] Custom Check
-- [ ] Regex Check
+- [x] Custom Check
+- [x] Regex Check
 - [ ] Refrential Integrity Check with Subset
 - [ ] Refrential Integrity Check with Full LOVs
-- [ ] Implement Optional Custom Where Clauses in Each Check
-- [ ] Null Check with where
+- [x] Implement Optional Custom Where Clauses in Each Check
+- [x] Null Check with where
