@@ -10,6 +10,8 @@ models:
               primary_key: o_orderkey
               severity_level: error
               custom_where_clause: "o_orderstatus = 'O'"
+      - name: o_clerk
+        tests:
           - check__unique:
               primary_key: o_orderkey
               severity_level: warn
@@ -27,8 +29,20 @@ models:
           #     custom_where_clause: "o_orderstatus = 'O'"  # Optional custom where clause
           - check__regex_match:
               primary_key: o_orderkey
-              severity_level: warn
+              severity_level: error
               regex_pattern: "'^Clerk#\\\\d{9}$'"
+      - name: o_orderdate
+        tests:
+          - check__date_format:
+              primary_key: o_orderkey
+              severity_level: error
+              expected_format: 'YYYY-MM-DD'
+      - name: o_orderstatus
+        tests:
+          - check__lov:
+              primary_key: o_orderkey
+              severity_level: error
+              allowed_values: ('O', 'F', 'P') # should be in single quotes and round brackets
   - name: stg_orders
 
 sources:

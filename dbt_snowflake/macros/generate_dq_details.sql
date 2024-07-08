@@ -14,5 +14,6 @@
             {{ table }}
         {% if where %} where {{ where }} {% endif %}
     {% endset %}
+    {{ log(dq_details_insert_query, true) }}
     {{ dq_details_insert_query }}
 {% endmacro %}

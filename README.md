@@ -7,9 +7,10 @@
 - [x] Unique Check
 - [x] Null Check
 - [x] Lenght Check
-- [ ] Data Format Check
+- [x] Data Format Check
 - [x] Custom Check
 - [x] Regex Check
+- [] LOV Check
 - [ ] Refrential Integrity Check with Subset
 - [ ] Refrential Integrity Check with Full LOVs
 - [x] Implement Optional Custom Where Clauses in Each Check
