@@ -24,6 +24,7 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 # Configuring vars
 vars:
+  step_name: Staging
   # dq_tools_enable_store_test_results: true
   # dbt_test_results_to_db: true
   # dbt_dq_tool_schema: AUDIT
@@ -52,5 +53,8 @@ models:
     staging:
       +materialized: table
 
-# on-run-end:
-#   - '{{ dq_tools.store_test_results(results) }}'
+on-run-start:
+  - "{{ create_process_logs(var('step_name')) }}"
+
+on-run-end:
+  - "{{ update_process_logs(results, var('step_name')) }}"
