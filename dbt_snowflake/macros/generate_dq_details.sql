@@ -9,6 +9,9 @@
                  WHEN '{{ severity_level }}' = 'error' THEN 'C'
                  ELSE NULL
             END as criticality,
+            CASE WHEN '{{ severity_level }}' = 'warn' AND '{{ criticality }}' = 'C' THEN 'Record will be Dropped'
+                 ELSE 'Record will be Processed Further'
+            END as action,
             '{{ table }}' as table_name,
             '{{ column_name }}' as dq_column_name,
             {{ column_name }} as dq_column_value,

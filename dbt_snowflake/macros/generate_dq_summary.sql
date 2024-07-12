@@ -1,4 +1,4 @@
-{% macro generate_dq_summary(table, severity_level, criticality, check_type, column_name, primary_key, failed_record_query) %}
+{% macro generate_dq_summary(table, severity_level, criticality, check_type, test_description, column_name, primary_key, failed_record_query) %}
     {% set row_count_query %}
         select
             count(*) as row_count 
@@ -25,6 +25,7 @@
                  WHEN '{{ severity_level }}' = 'error' THEN 'C'
                  ELSE NULL
             END as criticality,
+            '{{ test_description }}' as test_description,
             '{{ table }}' as table_name,
             '{{ column_name }}' as dq_column_name,
             {{ record_count }} as record_count,
@@ -34,5 +35,6 @@
                  ELSE 'NA'
             END as status
     {% endset %}
+    {{ log(dq_summary_insert_query, info=True) }}
     {{ dq_summary_insert_query }}
 {% endmacro %}

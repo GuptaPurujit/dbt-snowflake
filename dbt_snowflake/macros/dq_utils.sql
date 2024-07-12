@@ -24,7 +24,7 @@
     )
 {% endmacro %}
 
-{% macro generate_dq_detail_and_summary(model, column_name, primary_key, severity_level, criticality, check_type, condition, custom_where_clause) %}
+{% macro generate_dq_detail_and_summary(model, column_name, primary_key, severity_level, criticality, check_type, test_description, condition, custom_where_clause) %}
     {% set where_clause = where_clause(model, column_name, primary_key, condition, custom_where_clause) %}
     {% set detail_results = run_query(generate_dq_details(model, severity_level, criticality, check_type, column_name, primary_key, where_clause) ) %}
 
@@ -39,6 +39,7 @@
                         severity_level=severity_level,
                         criticality=criticality, 
                         check_type=check_type, 
+                        test_description=test_description,
                         column_name=column_name, 
                         primary_key=primary_key, 
                         failed_record_query='select 0'
@@ -70,7 +71,8 @@
                         table=model, 
                         severity_level=severity_level,
                         criticality=criticality,
-                        check_type=check_type, 
+                        check_type=check_type,
+                        test_description=test_description,
                         column_name=column_name, 
                         primary_key=primary_key, 
                         failed_record_query=get_error_record_count_query(model, column_name, condition, custom_where_clause)

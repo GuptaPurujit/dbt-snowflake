@@ -9,7 +9,8 @@
     }}
 
     {% if execute %}
-        {{ generate_dq_detail_and_summary(model, column_name, primary_key, severity_level, criticality, 'Unique Check', condition, custom_where_clause) }}
+        {% set test_description = 'This check will fail all records in column `' ~ column_name ~ '` which are not unique' %}
+        {{ generate_dq_detail_and_summary(model, column_name, primary_key, severity_level, criticality, 'Unique Check', test_description, condition, custom_where_clause) }}
     {% endif %}
 
 {% endtest %}
