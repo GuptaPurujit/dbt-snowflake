@@ -1,4 +1,4 @@
-{% macro generate_dq_summary(table, severity_level, check_type, column_name, primary_key, failed_record_query) %}
+{% macro generate_dq_summary(table, severity_level, criticality, check_type, column_name, primary_key, failed_record_query) %}
     {% set row_count_query %}
         select
             count(*) as row_count 
@@ -21,6 +21,10 @@
             TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDhh24MISS') as timestamp,
             '{{ check_type }}' as check_type,
             '{{ severity_level }}' as severity,
+            CASE WHEN '{{ severity_level }}' = 'warn' THEN '{{ criticality }}'
+                 WHEN '{{ severity_level }}' = 'error' THEN 'C'
+                 ELSE NULL
+            END as criticality,
             '{{ table }}' as table_name,
             '{{ column_name }}' as dq_column_name,
             {{ record_count }} as record_count,

@@ -1,10 +1,14 @@
-{% macro generate_dq_details(table, severity_level, check_type, column_name, primary_key, where=None) %}
+{% macro generate_dq_details(table, severity_level, criticality, check_type, column_name, primary_key, where=None) %}
     {% set dq_details_insert_query %}
         select
             '{{ invocation_id }}' as invocation_id,
             TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDhh24MISS') as timestamp,
             '{{ check_type }}' as check_type,
             '{{ severity_level }}' as severity,
+            CASE WHEN '{{ severity_level }}' = 'warn' THEN '{{ criticality }}'
+                 WHEN '{{ severity_level }}' = 'error' THEN 'C'
+                 ELSE NULL
+            END as criticality,
             '{{ table }}' as table_name,
             '{{ column_name }}' as dq_column_name,
             {{ column_name }} as dq_column_value,

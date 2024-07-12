@@ -1,4 +1,4 @@
-{% test check__date_format(model, column_name, primary_key, severity_level, expected_format, custom_where_clause=None) %}
+{% test check__date_format(model, column_name, primary_key, severity_level, expected_format, criticality='NC', custom_where_clause=None) %}
 
     {% set date_format_regex = 
         {
@@ -26,7 +26,7 @@
     }}
 
     {% if execute %}     
-        {{ generate_dq_detail_and_summary(model, column_name, primary_key, severity_level, 'Date Format Check', condition, custom_where_clause) }}
+        {{ generate_dq_detail_and_summary(model, column_name, primary_key, severity_level, criticality, 'Date Format Check', condition, custom_where_clause) }}
     {% endif %}
 
 {% endtest %}

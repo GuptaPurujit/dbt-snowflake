@@ -15,6 +15,7 @@ models:
           - check__unique:
               primary_key: o_orderkey
               severity_level: warn
+              criticality: C
           - check__length:
               primary_key: o_orderkey
               severity_level: warn
