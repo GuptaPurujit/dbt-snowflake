@@ -1,3 +1,8 @@
+{{ config (
+        fromjson(var('config_dict'))
+    )
+}}
+
 with source as (
     select
         *
@@ -15,4 +20,6 @@ updated_source as (
         source
 )
 
-select * from updated_source
+{% if execute %}
+    {{ generate_stg_query('int_orders__predqm.sql', source('raw', 'orders')) }}
+{% endif %}

@@ -4,7 +4,7 @@
             '{{ invocation_id }}' as invocation_id,
             '{{ step_name }}' as step_name,
             'IN PROGRESS' as status,
-            TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDhh24MISS') AS start_time,
+            TO_CHAR(CURRENT_TIMESTAMP(), 'YYYYMMDDhh24MISS') AS start_time,
             NULL as end_time
     {% endset %}
     
@@ -31,7 +31,7 @@
         UPDATE {{ database }}.AUDIT.process_summary
         SET
             status = '{{ ns.overall_status }}',
-            end_time = TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDhh24MISS')
+            end_time = TO_CHAR(CURRENT_TIMESTAMP(), 'YYYYMMDDhh24MISS')
         WHERE
             invocation_id = '{{ invocation_id }}'
             AND

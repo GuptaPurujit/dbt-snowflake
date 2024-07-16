@@ -18,7 +18,7 @@
     {% set dq_summary_insert_query %}
         select
             '{{ invocation_id }}' as invocation_id,
-            TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDhh24MISS') as timestamp,
+            TO_CHAR(CURRENT_TIMESTAMP(), 'YYYYMMDDhh24MISS') as timestamp,
             '{{ check_type }}' as check_type,
             '{{ severity_level }}' as severity,
             CASE WHEN '{{ severity_level }}' = 'warn' THEN '{{ criticality }}'
@@ -35,6 +35,5 @@
                  ELSE 'NA'
             END as status
     {% endset %}
-    {{ log(dq_summary_insert_query, info=True) }}
     {{ dq_summary_insert_query }}
 {% endmacro %}

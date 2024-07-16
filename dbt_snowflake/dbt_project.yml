@@ -25,6 +25,7 @@ clean-targets:         # directories to be removed by `dbt clean`
 # Configuring vars
 vars:
   step_name: Staging
+  config_dict: '{"materialized": "view"}'
   # dq_tools_enable_store_test_results: true
   # dbt_test_results_to_db: true
   # dbt_dq_tool_schema: AUDIT

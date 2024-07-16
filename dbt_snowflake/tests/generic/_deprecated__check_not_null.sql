@@ -5,7 +5,7 @@
 {% set details_query %}
     select
         '{{ invocation_id }}' as invocation_id,
-        TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDhh24MISS') as timestamp,
+        TO_CHAR(CURRENT_TIMESTAMP(), 'YYYYMMDDhh24MISS') as timestamp,
         'Null Check' as check_type,
         '{{ severity_level }}' as severity,
         '{{ model }}' as table_name,
@@ -22,7 +22,7 @@
 {% set summary_query %}
     select
         '{{ invocation_id }}' as invocation_id,
-        TO_CHAR(CURRENT_TIMESTAMP, 'YYYYMMDDhh24MISS') as timestamp,
+        TO_CHAR(CURRENT_TIMESTAMP(), 'YYYYMMDDhh24MISS') as timestamp,
         'Null Check' as check_type,
         '{{ severity_level }}' as severity,
         '{{ model }}' as table_name,
