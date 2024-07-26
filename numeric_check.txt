@@ -1,0 +1,16 @@
+{% test check__numeric_check(model, column_name, primary_key, severity_level, regex_pattern, criticality='NC', custom_where_clause=None) %}
+
+    {% set condition = column_name ~ ' NOT  RLIKE ' ~ regex_pattern ~ ' AND ' ~ column_name ~ ' IS NOT NULL ' %}
+    
+    {{
+        config(
+            severity=severity_level
+        )
+    }}
+
+    {% if execute %}
+        {% set test_description = 'This check will fail the column `' ~ column_name ~ ' if it's not numeric %} 
+        {{ generate_dq_detail_and_summary(model, column_name, primary_key, severity_level, 'Numeric Check',test_description, condition, custom_where_clause) }}
+    {% endif %}
+
+{% endtest %}

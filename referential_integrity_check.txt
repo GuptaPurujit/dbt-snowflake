@@ -1,0 +1,17 @@
+{% test check_referential_integrity(model, column_name, primary_key, severity_level, referenced_table, referenced_column, criticality='NC', custom_where_clause=None) %}
+    {% set condition = column_name ~ ' IS NOT NULL AND ' ~ column_name ~ ' NOT IN (SELECT ' ~ referenced_column ~ ' FROM ' ~ referenced_table ~ ' WHERE ' ~ referenced_column ~ ' IS NOT NULL)' %}
+    
+    {{ log(condition, true) }}
+    
+    {{
+        config(
+            severity=severity_level
+        )
+    }}
+
+    {% if execute %}
+         {% set test_description = 'This check will fail the column `' ~ column_name ~ '` which does not present in ' ~ referenced_column ~ from ~ referenced_table ~ %} 
+        {{ generate_dq_detail_and_summary(model, column_name, primary_key, severity_level, criticality, 'Referential Integrity Check', test_description, condition, custom_where_clause) }}
+    {% endif %}
+{% endtest %}
+
